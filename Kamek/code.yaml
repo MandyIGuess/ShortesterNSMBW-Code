@@ -1,0 +1,48 @@
+---
+source_files: [../src/code.cpp, ../src/code.S]
+hooks:
+  - name: CreditsAfterOpeningMovie
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80922FB0
+    target_func: 'StaffCreditBegin(void)'
+
+  - name: CreditsAfterFileSelect
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809191EC
+    target_func: 'StaffCreditBegin(void)'
+
+  - name: TitleAfterCredits
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80913384
+    target_func: 'TitleAfterCredits(void)'
+
+  - name: IAlreadyMadeTheLayout
+    type: nop_insn
+    area_pal: 0x807B292C
+
+  - name: FS_RemoveMultiSelect
+    type: patch
+    addr_pal: 0x80783D04
+    data: '4800001C'
+
+  - {name: FS_DisableMultiIn,  type: nop_insn, area_pal: [0x807837FC, 0x8078380C]}
+  - {name: FS_DisableMultiIn2, type: nop_insn, area_pal: [0x8078394C, 0x8078395C]}
+  - {name: FS_DisableMultiOut, type: nop_insn, area_pal: [0x80784220, 0x80784230]}
+
+  - name: NoTitleScreenMovie
+    type: nop_insn
+    area_pal: 0x80781FB8
+
+  - name: SkipReplays
+    type: patch
+    addr_pal: 0x80781FBC
+    data: '38600000'
+
+  - name: Prolog
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8015bd74
+    target_func: 'Prolog'

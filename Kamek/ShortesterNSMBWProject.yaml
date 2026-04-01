@@ -1,0 +1,3 @@
+output_dir: "ShortestASM"
+code_address: 0x808D9000
+modules: [processed/code.yaml]
